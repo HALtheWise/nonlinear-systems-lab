@@ -10,3 +10,6 @@ Plot[
 
 
 makeDimensionless[x_,X_,t_,T_]:={x[t]:>1/\[Beta] X[T],Derivative[n_][x][t]:>\[Alpha]^n/\[Beta] Derivative[n][X][T]};
+
+
+assumeReal[x_]:=x/.{Abs[thing___]^2:>thing^2}

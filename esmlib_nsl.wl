@@ -3,10 +3,15 @@
 IFPlot[sol_]:=Module[{vars},
 vars=sol[[All,1]];
 Plot[
-	#[t]&/@(vars/.sol),
-	Prepend[(vars[[1]]/.sol)["Domain"][[1]],t],
+	(vars/.sol),
+	Prepend[(vars[[1]]/.sol)[[0,1,1]],t],
 	PlotLegends->vars]
 ]
+
+
+(* ::Code:: *)
+(*NDSolve[{x'[t]==Sin[t],x[0]==0},x[t],{t,0,10}][[1]];*)
+(*IFPlot[%]*)
 
 
 makeDimensionless[Xs_,t_,T_]:=

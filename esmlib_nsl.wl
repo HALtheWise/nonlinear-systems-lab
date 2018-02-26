@@ -3,9 +3,9 @@
 IFPlot[sol_]:=Module[{vars},
 vars=sol[[All,1]];
 Plot[
-	(vars/.sol),
+	Evaluate[(vars/.sol)],
 	Prepend[(vars[[1]]/.sol)[[0,1,1]],t],
-	PlotLegends->vars]
+	PlotLegends->vars, PlotRange->All]
 ]
 
 

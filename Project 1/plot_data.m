@@ -12,13 +12,21 @@ gravity = 9.8;
 
 %% Configuration 2
 
-plottitle='Configuration 2, Stabilizing from Single-Pendulum Start';
-tdfread('data/cleaned/final_medium_singlestart_stabilizes3.tsv');
-M = M+.735;
+% plottitle='Configuration 2, Stabilizing from Single-Pendulum Start';
+% tdfread('data/cleaned/final_medium_singlestart_stabilizes3.tsv');
+% M = M+.735;
+
+% plottitle='Configuration 2, Barely Stabilizing from Single-Pendulum Start';
+% tdfread('data/cleaned/final_medium_singlestart_stabilizes4.tsv');
+% M = M+.735;
 
 % plottitle='Configuration 2, Dying from Single-Pendulum Start';
 % tdfread('data/cleaned/final_medium_singlestart_death1.tsv');
 % M = M+.735;
+
+plottitle='Configuration 2, Barely Dying from Single-Pendulum Start';
+tdfread('data/cleaned/final_medium_singlestart_death2.tsv');
+M = M+.735;
 
 %% Configuration 3
 

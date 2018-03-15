@@ -4,6 +4,7 @@ pendulumlen = 0.335;
 m = 0.068;
 M = .8949+2*m;
 gravity = 9.8;
+is_model=0;
 
 %% Configuration 1
 
@@ -38,20 +39,55 @@ gravity = 9.8;
 % Time = Time(Time<75);
 % M = M+1.525;
 
-plottitle='Configuration 3, Dying from Single-Pendulum Start';
-tdfread('data/cleaned/final_heavy_singlestart_death.tsv');
-M = M+1.525;
+% plottitle='Configuration 3, Dying from Single-Pendulum Start';
+% tdfread('data/cleaned/final_heavy_singlestart_death.tsv');
+% M = M+1.525;
 
 % plottitle='Configuration 3, Dying';
 % tdfread('data/cleaned/final_heavy_death1.tsv');
 % M = M+1.525;
 
+%% Model data
+
+% plottitle='Model: Configuration 1';
+% load('data/model_data.mat');
+% Time=T_light;
+% theta1=X_light(:,1);
+% theta2=X_light(:,3);
+% x=X_light(:,5);
+% is_model=1;
+
+% plottitle='Model: Configuration 2';
+% load('data/model_data.mat');
+% Time=T_medium;
+% theta1=X_medium(:,1);
+% theta2=X_medium(:,3);
+% x=X_medium(:,5);
+% M = M+.735;
+% is_model=1;
+
+
+plottitle='Model: Configuration 3';
+load('data/model_data.mat');
+Time=T_medium;
+theta1=X_heavy(:,1);
+theta2=X_heavy(:,3);
+x=X_heavy(:,5);
+M = M+1.525;
+is_model=1;
+
 %% Code
 
-g = gausswin(10); % <-- this value determines the width of the smoothing window
-g = g/sum(g);
-g2 = gausswin(30); % <-- this value determines the width of the smoothing window
-g2 = g2/sum(g2);
+if is_model == 0
+    g = gausswin(10); % <-- this value determines the width of the smoothing window
+    g = g/sum(g);
+    g2 = gausswin(30); % <-- this value determines the width of the smoothing window
+    g2 = g2/sum(g2);
+else
+    g=1;
+    g2=1;
+end
+    
 speed1 = gradient(theta1, Time);
 speed1 = conv(speed1, g, 'same');
 e1 = m .* gravity .* pendulumlen .* (1-cos(theta1)) + .5 .* m .* (speed1 .* pendulumlen) .^ 2;
@@ -69,25 +105,32 @@ e3=conv(e3,g2,'same');
 
 figure('pos',[10 10 1920 400])
 hold on
-yyaxis right
+if is_model == 0
+    yyaxis right
+end
 plot(Time, theta1,'b-', 'LineWidth', .5)
 plot(Time, theta2,'r-', 'LineWidth', .5)
 plot(Time, x,'g-', 'LineWidth', .5)
 hy = ylabel('Bob Angle (rad)');
 set(hy, 'FontSize', 20)
-yyaxis left
-ylim([0,2.5e-3]);
-plot(Time, e1+e2+e3,'k-', 'LineWidth', 3)
-plot(Time, e1,'b-', 'LineWidth', 3)
-plot(Time, e2,'r-', 'LineWidth', 3)
-plot(Time, e3,'g-', 'LineWidth', 3)
+if is_model==0
+    yyaxis left
+    ylim([0,2.5e-3]);
+    plot(Time, e1+e2+e3,'k-', 'LineWidth', 3)
+    plot(Time, e1,'b-', 'LineWidth', 3)
+    plot(Time, e2,'r-', 'LineWidth', 3)
+    plot(Time, e3,'g-', 'LineWidth', 3)
+    hy2=ylabel('Energy (J)');
+end
 hold off
 hx=xlabel('Time'); %or h=get(gca,'xlabel')
-hy2=ylabel('Energy (J)');
 ht = title(plottitle);
 set(ht, 'FontSize', 20)
 set(hx, 'FontSize', 20) 
 set(hy2, 'FontSize', 18)
 %set(h,'FontWeight','bold') %bold font
-legend('Clock 1 angle', 'Clock 2 angle', 'Base position (m)', 'Total energy', 'Clock 1 energy', 'Clock 2 energy', 'Base energy')
-
+if is_model == 0
+    legend('Total energy', 'Clock 1 energy', 'Clock 2 energy', 'Base energy', 'Clock 1 angle', 'Clock 2 angle', 'Base position (m)')
+else
+    legend('Clock 1 angle', 'Clock 2 angle', 'Base position (m)')
+end

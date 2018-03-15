@@ -6,7 +6,7 @@ M = .8949+2*m+.735;
 gravity = 9.8;
 
 tdfread('data/cleaned/final_light_singlestart_stabilizes1.tsv');
-plottitle='Configuration 1, Stabilizing from Single-Pendulum Start';
+plottitle='Light configuration, ssi';
 
 g = gausswin(10); % <-- this value determines the width of the smoothing window
 g = g/sum(g);
@@ -49,5 +49,5 @@ set(ht, 'FontSize', 20)
 set(hx, 'FontSize', 20) 
 set(hy2, 'FontSize', 18)
 %set(h,'FontWeight','bold') %bold font
-legend('Clock 1 angle', 'Clock 2 angle', 'Base position (m)', 'Total energy', 'Clock 1 energy', 'Clock 2 energy', 'Base energy')
+legend('Clock 1 angle', 'Clock 2 angle', 'Base position (m)', 'Clock 1 energy', 'Clock 2 energy', 'Base energy')
 

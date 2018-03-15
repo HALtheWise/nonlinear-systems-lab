@@ -24,9 +24,9 @@ gravity = 9.8;
 % tdfread('data/cleaned/final_medium_singlestart_death1.tsv');
 % M = M+.735;
 
-plottitle='Configuration 2, Barely Dying from Single-Pendulum Start';
-tdfread('data/cleaned/final_medium_singlestart_death2.tsv');
-M = M+.735;
+% plottitle='Configuration 2, Barely Dying from Single-Pendulum Start';
+% tdfread('data/cleaned/final_medium_singlestart_death2.tsv');
+% M = M+.735;
 
 %% Configuration 3
 
@@ -38,9 +38,9 @@ M = M+.735;
 % Time = Time(Time<75);
 % M = M+1.525;
 
-% plottitle='Configuration 3, Dying from Single-Pendulum Start';
-% tdfread('data/cleaned/final_heavy_singlestart_death.tsv');
-% M = M+1.525;
+plottitle='Configuration 3, Dying from Single-Pendulum Start';
+tdfread('data/cleaned/final_heavy_singlestart_death.tsv');
+M = M+1.525;
 
 % plottitle='Configuration 3, Dying';
 % tdfread('data/cleaned/final_heavy_death1.tsv');
@@ -69,13 +69,13 @@ e3=conv(e3,g2,'same');
 
 figure('pos',[10 10 1920 400])
 hold on
-yyaxis left
+yyaxis right
 plot(Time, theta1,'b-', 'LineWidth', .5)
 plot(Time, theta2,'r-', 'LineWidth', .5)
 plot(Time, x,'g-', 'LineWidth', .5)
 hy = ylabel('Bob Angle (rad)');
 set(hy, 'FontSize', 20)
-yyaxis right
+yyaxis left
 ylim([0,2.5e-3]);
 plot(Time, e1+e2+e3,'k-', 'LineWidth', 3)
 plot(Time, e1,'b-', 'LineWidth', 3)
